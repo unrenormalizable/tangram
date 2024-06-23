@@ -1,29 +1,8 @@
-import math
 import random
 import numpy as np
 from shapely import geometry, affinity, wkt
 from PIL import Image, ImageDraw
-
-LT1 = geometry.Polygon([(0, 0), (math.sqrt(2) / 2, 0), (0, math.sqrt(2) / 2)])
-LT2 = geometry.Polygon([(0, 0), (math.sqrt(2) / 2, 0), (0, math.sqrt(2) / 2)])
-MT = geometry.Polygon([(0, 0), (1 / 2, 0), (0, 1 / 2)])
-ST1 = geometry.Polygon([(0, 0), (math.sqrt(2) / 4, 0), (0, math.sqrt(2) / 4)])
-ST2 = geometry.Polygon([(0, 0), (math.sqrt(2) / 4, 0), (0, math.sqrt(2) / 4)])
-SQ = geometry.Polygon([(0, 0), (math.sqrt(2) / 4, 0), (math.sqrt(2) / 4, math.sqrt(2) / 4), (0, math.sqrt(2) / 4)])
-PG = geometry.Polygon([(0, 0), (1 / 2, 0), (3 / 4, 1 / 4), (1 / 4, 1 / 4)])
-
-SHAPES = {
-    "LT1": LT1,
-    "LT2": LT2,
-    "MT": MT,
-    "ST1": ST1,
-    "ST2": ST2,
-    "SQ": SQ,
-    "PG": PG,
-}
-
-for s in SHAPES.values():
-    print(s)
+import common
 
 
 def arrange_polygon(polygon):
@@ -65,7 +44,7 @@ def render_polygons(polygons: geometry.MultiPolygon, img_size):
     img.show()
 
 
-# random.seed(2178)
+random.seed(3141)
 IMAGE_LEN = 512
-mp = arrange_polygons(SHAPES.values())
+mp = arrange_polygons([geometry.Polygon(p) for p in common.SHAPES.values()])
 render_polygons(mp, IMAGE_LEN)
