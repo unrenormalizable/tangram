@@ -1,4 +1,6 @@
+import os
 import math
+import pathlib
 
 SHAPES = {
     "LT1": [(0, 0), (math.sqrt(2) / 2, 0), (0, math.sqrt(2) / 2)],
@@ -19,3 +21,10 @@ IDs = {
     "SQ": [(0, 0), (math.sqrt(2) / 4, 0)],
     "PG": [(0, 0), (1 / 2, 0), (3 / 8, 1 / 8)],
 }
+
+
+def get_target_path():
+    path = os.path.dirname(os.path.realpath(__file__))
+    path = f"{path}/target"
+    pathlib.Path("/my/directory").mkdir(parents=True, exist_ok=True)
+    return path

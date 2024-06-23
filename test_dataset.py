@@ -1,3 +1,5 @@
+import numpy as np
+from PIL import Image
 import common
 
 
@@ -26,11 +28,16 @@ def make_parallelogram(ids):
     return [ids[0], ids[1], v3, v4]
 
 
-print(common.SHAPES["SQ"])
-print(make_square(common.IDs["SQ"]))
+path = common.get_target_path()
+im = Image.open(f"{path}/0000.bmp")
+p = np.array(im)
 
-print(common.SHAPES["LT1"])
-print(make_right_triangle(common.IDs["LT1"]))
+with open(f"{path}/0000.csv", encoding="utf8") as f:
+    lines = f.readlines()
 
-print(common.SHAPES["PG"])
-print(make_parallelogram(common.IDs["PG"]))
+
+polygons = [line.strip().split(",") for line in lines]
+vertices = [
+    [tuple(int(float(x)) for x in polygon[i : i + 2]) for i in range(0, len(polygon), 2)] for polygon in polygons
+]
+print(p.dtype)
