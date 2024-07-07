@@ -32,12 +32,5 @@ path = common.get_target_path()
 im = Image.open(f"{path}/0000.bmp")
 p = np.array(im)
 
-with open(f"{path}/0000.csv", encoding="utf8") as f:
-    lines = f.readlines()
-
-
-polygons = [line.strip().split(",") for line in lines]
-vertices = [
-    [tuple(int(float(x)) for x in polygon[i : i + 2]) for i in range(0, len(polygon), 2)] for polygon in polygons
-]
+vertices = common.get_vertices(f"{path}/0000.csv")
 print(p.dtype)

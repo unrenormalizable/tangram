@@ -23,8 +23,28 @@ IDs = {
 }
 
 
-def get_target_path():
+def _get_path(sub_folder):
     path = os.path.dirname(os.path.realpath(__file__))
-    path = f"{path}/target"
-    pathlib.Path("/my/directory").mkdir(parents=True, exist_ok=True)
+    path = f"{path}/{sub_folder}"
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
     return path
+
+
+def get_target_path():
+    return _get_path("target")
+
+
+def get_images_path():
+    return _get_path("images")
+
+
+def get_y(fname):
+    with open(f"{fname}", encoding="utf8") as f:
+        lines = f.readlines()
+
+    polygons = [line.strip().split(",") for line in lines]
+    vertices = [
+        [tuple(float(x) for x in polygon[i : i + 2]) for i in range(0, len(polygon), 2)] for polygon in polygons
+    ]
+
+    return vertices
